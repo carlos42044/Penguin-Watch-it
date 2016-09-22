@@ -103,7 +103,7 @@ static void main_window_load(Window *window) {
   text_layer_attributes(s_time_layer, GColorClear, GColorBlack, GTextAlignmentCenter);
 
   // setting the color of the window background
-  window_set_background_color(s_main_window, GColorPurple);
+  window_set_background_color(s_main_window, GColorJaegerGreen);
   
   // Add it as a child layer to the Window's root layer
   layer_add_child(window_layer, text_layer_get_layer(s_date_layer));
