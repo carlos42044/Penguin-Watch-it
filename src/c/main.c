@@ -98,14 +98,12 @@ static void main_window_load(Window *window) {
   // date layer attributes
   text_layer_attributes(s_date_layer, GColorClear, GColorBlack, GTextAlignmentCenter);
   text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
-  //text_layer_set_background_color(s_date_layer, GColorClear);
-  //text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_LECO_20_BOLD_NUMBERS));
-  
+    
   // Add the text layer with the correct attributes
   text_layer_attributes(s_time_layer, GColorClear, GColorBlack, GTextAlignmentCenter);
 
   // setting the color of the window background
-  window_set_background_color(s_main_window, GColorCeleste);
+  window_set_background_color(s_main_window, GColorCyan);
   
   // Add it as a child layer to the Window's root layer
   layer_add_child(window_layer, text_layer_get_layer(s_date_layer));
