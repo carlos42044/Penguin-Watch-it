@@ -75,6 +75,12 @@ static void animation(GRect bounds) {
       
 }
 
+static void accel_tap_handler(AccelAxisType axis, int32_t direction) {
+  APP_LOG(APP_LOG_LEVEL_INFO, "Tap event recieved");
+  // Test if this code works
+  window_set_background_color(s_main_window, GColorRed);
+}
+
 static void main_window_load(Window *window) {
   // Get information about the window
   Layer *window_layer = window_get_root_layer(window);
@@ -116,6 +122,7 @@ static void main_window_load(Window *window) {
 static void main_window_unload(Window *window) {
   // Destory the text layer
   text_layer_destroy(s_time_layer);
+  text_layer_destroy(s_date_layer);
   gbitmap_sequence_destroy(s_sequence);
   gbitmap_destroy(s_bitmap);
   bitmap_layer_destroy(s_bitmap_layer);
@@ -127,7 +134,10 @@ void init(){
   
   // Register with TickTimerService
   tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
-    
+  
+  // Subscribe to tap events 
+  accel_tap_service_subscribe(accel_tap_handler);
+  
   // Set handlers to manage the elements inside the Window
   window_set_window_handlers(s_main_window, (WindowHandlers){
     .load = main_window_load, 
