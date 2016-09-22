@@ -42,7 +42,7 @@ static void update_time() {
   text_layer_set_text(s_date_layer, s_buffer_date);
 }
 
-static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
+static void tick_handler(struct tm *tick_time, TimeUnits units_changed){
   update_time();
 }
 
@@ -97,13 +97,13 @@ static void main_window_load(Window *window) {
   
   // date layer attributes
   text_layer_attributes(s_date_layer, GColorClear, GColorBlack, GTextAlignmentCenter);
-  text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
+  text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_18));
   
   // Add the text layer with the correct attributes
   text_layer_attributes(s_time_layer, GColorClear, GColorBlack, GTextAlignmentCenter);
 
   // setting the color of the window background
-  window_set_background_color(s_main_window, GColorRajah);
+  window_set_background_color(s_main_window, GColorPurple);
   
   // Add it as a child layer to the Window's root layer
   layer_add_child(window_layer, text_layer_get_layer(s_date_layer));
