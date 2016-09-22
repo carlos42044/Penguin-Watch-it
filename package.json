@@ -2,9 +2,9 @@
     "author": "carlos42044@gmail.com",
     "dependencies": {},
     "keywords": [],
-    "name": "firstwatchface",
+    "name": "penguin-watch-it",
     "pebble": {
-        "displayName": "firstWatchFace",
+        "displayName": "Penguin Watch It",
         "enableMultiJS": true,
         "messageKeys": [],
         "projectType": "native",
@@ -26,7 +26,7 @@
         ],
         "uuid": "70d8001c-b670-4dcf-8297-0d865de85511",
         "watchapp": {
-            "watchface": false
+            "watchface": true
         }
     },
     "version": "1.0.0"
