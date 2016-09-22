@@ -1,0 +1,33 @@
+{
+    "author": "carlos42044@gmail.com",
+    "dependencies": {},
+    "keywords": [],
+    "name": "firstwatchface",
+    "pebble": {
+        "displayName": "firstWatchFace",
+        "enableMultiJS": true,
+        "messageKeys": [],
+        "projectType": "native",
+        "resources": {
+            "media": [
+                {
+                    "file": "data/scaled_animated_three.png",
+                    "name": "SCALED_LARGE",
+                    "targetPlatforms": null,
+                    "type": "raw"
+                }
+            ]
+        },
+        "sdkVersion": "3",
+        "targetPlatforms": [
+            "aplite",
+            "basalt",
+            "chalk"
+        ],
+        "uuid": "70d8001c-b670-4dcf-8297-0d865de85511",
+        "watchapp": {
+            "watchface": false
+        }
+    },
+    "version": "1.0.0"
+}
