@@ -1,0 +1,33 @@
+{
+    "targetPlatforms": [
+        "aplite", 
+        "basalt", 
+        "chalk"
+    ], 
+    "projectType": "native", 
+    "name": "penguin-watch-it", 
+    "messageKeys": {}, 
+    "companyName": "carlos42044@gmail.com", 
+    "enableMultiJS": true, 
+    "versionLabel": "1.0", 
+    "capabilities": [], 
+    "sdkVersion": "3", 
+    "appKeys": {}, 
+    "longName": "Penguin Watch It", 
+    "displayName": "Penguin Watch It", 
+    "shortName": "Penguin Watch It", 
+    "watchapp": {
+        "watchface": true
+    }, 
+    "resources": {
+        "media": [
+            {
+                "targetPlatforms": null, 
+                "type": "raw", 
+                "name": "SCALED_LARGE", 
+                "file": "data/scaled_animated_three.png"
+            }
+        ]
+    }, 
+    "uuid": "70d8001c-b670-4dcf-8297-0d865de85511"
+}
