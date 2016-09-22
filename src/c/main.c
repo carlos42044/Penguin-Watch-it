@@ -33,9 +33,10 @@ static void update_time() {
                                          "%H:%M" : "%I:%M", tick_time);
   
   // Write the current date into a buffer
-  static char s_buffer_date[] = "September 21"; 
-  strftime(s_buffer_date, sizeof(s_buffer_date), "%B, %e", tick_time);
+  static char s_buffer_date[12]; 
+  strftime(s_buffer_date, sizeof(s_buffer_date), "%a, %b %d", tick_time);
   APP_LOG(APP_LOG_LEVEL_DEBUG, "s_buffer_date[] value is: %s" , s_buffer_date);
+  
   //Display this time on the TextLayer 
   text_layer_set_text(s_time_layer, s_buffer);
   text_layer_set_text(s_date_layer, s_buffer_date);
@@ -96,7 +97,7 @@ static void main_window_load(Window *window) {
   
   // date layer attributes
   text_layer_attributes(s_date_layer, GColorClear, GColorBlack, GTextAlignmentCenter);
-  text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_LECO_20_BOLD_NUMBERS));
+  text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
   //text_layer_set_background_color(s_date_layer, GColorClear);
   //text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_LECO_20_BOLD_NUMBERS));
   
