@@ -97,7 +97,7 @@ static void main_window_load(Window *window) {
   
   // date layer attributes
   text_layer_attributes(s_date_layer, GColorClear, GColorBlack, GTextAlignmentCenter);
-  text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_18));
+  text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
   
   // Add the text layer with the correct attributes
   text_layer_attributes(s_time_layer, GColorClear, GColorBlack, GTextAlignmentCenter);
