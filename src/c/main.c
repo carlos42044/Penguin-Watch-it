@@ -17,6 +17,7 @@ static void timer_handler(void *context) {
     bitmap_layer_set_bitmap(s_bitmap_layer, s_bitmap);
     layer_mark_dirty(bitmap_layer_get_layer(s_bitmap_layer));
     
+    
     // Timer for that frame's delay
     app_timer_register(timer, timer_handler, NULL);
   }
@@ -51,7 +52,7 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed){
 
 static void animation(GRect bounds) {
   // Creating the sequence
-  s_sequence = gbitmap_sequence_create_with_resource(RESOURCE_ID_SCALED_LARGE);
+  s_sequence = gbitmap_sequence_create_with_resource(PBL_IF_BW_ELSE(RESOURCE_ID_SCALED_LARGE_GRAY_SCALE, RESOURCE_ID_SCALED_LARGE_COLOR));
   // Create the blank GBitmap using APNG frame size
   GSize frame_size = gbitmap_sequence_get_bitmap_size(s_sequence);
   s_bitmap = gbitmap_create_blank(frame_size, GBitmapFormat8Bit);
@@ -71,9 +72,6 @@ static void animation(GRect bounds) {
 
 static void accel_tap_handler(AccelAxisType axis, int32_t direction) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Tap event recieved");
-  // Test if this code works
-  //background_color.argb = GColorOxfordBlueARGB8 + (int) (1 * (int)(GColorOxfordBlueARGB8 - GColorWhite));
-  //window_set_background_color(s_main_window, background_color);
     if (count % 2 == 0) {
     window_set_background_color(s_main_window, GColorRed);
   } else {
@@ -82,12 +80,12 @@ static void accel_tap_handler(AccelAxisType axis, int32_t direction) {
   count++;
 }
 
-static void text_layer_attributes(TextLayer *text_layer, GColor background_color, GColor text_color, const char *font_ID, GTextAlignment text_alignment) {
+static void text_layer_attributes(TextLayer *text_layer, GColor background_color, GColor text_color, const char *font, GTextAlignment text_alignment) {
   text_layer_set_background_color(text_layer, background_color);
   text_layer_set_text_color(text_layer, text_color);
   text_layer_set_text_alignment(text_layer, text_alignment);
-  text_layer_set_font(s_time_layer, fonts_get_system_font(font_ID));
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "font value is: %s" , font_ID);
+  text_layer_set_font(s_time_layer, fonts_get_system_font(font));
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "font_ID value is: %s" , font);
 }
 
 static void main_window_load(Window *window) {
@@ -105,27 +103,22 @@ static void main_window_load(Window *window) {
   // Create a Time TextLayer with specific bounds
   s_time_layer = text_layer_create(GRect(0, bounds_1.size.h, bounds.size.w, 50)); 
   
-  // Create TextLayer for date
- // Layer *time_layer = text_layer_get_layer(s_time_layer);
-  //GRect time_layer_bounds = layer_get_bounds(time_layer);
   s_date_layer = text_layer_create(GRect(0,bounds.size.h-50, bounds.size.w, 30));
   
   // date layer attributes
-  text_layer_attributes(s_date_layer, GColorClear, GColorBlack, "FONT_KEY_ROBOTO_CONDENSED_21",GTextAlignmentCenter);
-  //text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
+  text_layer_attributes(s_date_layer, GColorClear, GColorBlack, FONT_KEY_GOTHIC_28,GTextAlignmentCenter);
+  text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD));
   
-  // Add the text layer with the correct attributes
-  text_layer_attributes(s_time_layer, GColorClear, GColorBlack, "FONT_KEY_LECO_42_NUMBERS",GTextAlignmentCenter);
+  // Add the time layer with the correct attributes
+  text_layer_attributes(s_time_layer, GColorClear, GColorBlack, FONT_KEY_LECO_42_NUMBERS, GTextAlignmentCenter);
 
   // setting the color of the window background
-  window_set_background_color(s_main_window, GColorJaegerGreen);
+  window_set_background_color(s_main_window, GColorCyan);
   
   // Add it as a child layer to the Window's root layer
-
   layer_add_child(window_layer, text_layer_get_layer(s_date_layer));
   layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
   layer_add_child(window_layer, bitmap_layer_get_layer(s_bitmap_layer));
-
 }
 
 // Destroys whatever was created

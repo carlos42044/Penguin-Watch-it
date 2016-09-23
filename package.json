@@ -11,8 +11,14 @@
         "resources": {
             "media": [
                 {
+                    "file": "data/animated_gray_scale.png",
+                    "name": "SCALED_LARGE_GRAY_SCALE",
+                    "targetPlatforms": null,
+                    "type": "raw"
+                },
+                {
                     "file": "data/scaled_animated_three.png",
-                    "name": "SCALED_LARGE",
+                    "name": "SCALED_LARGE_COLOR",
                     "targetPlatforms": null,
                     "type": "raw"
                 }
