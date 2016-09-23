@@ -5,6 +5,7 @@ static TextLayer *s_time_layer, *s_date_layer;
 static BitmapLayer *s_bitmap_layer;
 static GBitmapSequence *s_sequence;
 static GBitmap *s_bitmap;
+static int count = 0;
 
 // Handles the animation of the apng(Raw binary resource)
 static void timer_handler(void *context) {
@@ -47,13 +48,6 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed){
 }
 
 // Function to set all of the text layer's attributes
-static void text_layer_attributes(TextLayer *text_layer, GColor background_color, GColor text_color, GTextAlignment text_alignment) {
-  text_layer_set_background_color(text_layer, background_color);
-  text_layer_set_text_color(text_layer, text_color);
-  text_layer_set_text_alignment(text_layer, text_alignment);
-  text_layer_set_font(s_time_layer, fonts_get_system_font(FONT_KEY_LECO_42_NUMBERS));
-
-}
 
 static void animation(GRect bounds) {
   // Creating the sequence
@@ -78,7 +72,22 @@ static void animation(GRect bounds) {
 static void accel_tap_handler(AccelAxisType axis, int32_t direction) {
   APP_LOG(APP_LOG_LEVEL_INFO, "Tap event recieved");
   // Test if this code works
-  window_set_background_color(s_main_window, GColorRed);
+  //background_color.argb = GColorOxfordBlueARGB8 + (int) (1 * (int)(GColorOxfordBlueARGB8 - GColorWhite));
+  //window_set_background_color(s_main_window, background_color);
+    if (count % 2 == 0) {
+    window_set_background_color(s_main_window, GColorRed);
+  } else {
+    window_set_background_color(s_main_window, GColorJaegerGreen);
+  }
+  count++;
+}
+
+static void text_layer_attributes(TextLayer *text_layer, GColor background_color, GColor text_color, const char *font_ID, GTextAlignment text_alignment) {
+  text_layer_set_background_color(text_layer, background_color);
+  text_layer_set_text_color(text_layer, text_color);
+  text_layer_set_text_alignment(text_layer, text_alignment);
+  text_layer_set_font(s_time_layer, fonts_get_system_font(font_ID));
+  APP_LOG(APP_LOG_LEVEL_DEBUG, "font value is: %s" , font_ID);
 }
 
 static void main_window_load(Window *window) {
@@ -102,16 +111,17 @@ static void main_window_load(Window *window) {
   s_date_layer = text_layer_create(GRect(0,bounds.size.h-50, bounds.size.w, 30));
   
   // date layer attributes
-  text_layer_attributes(s_date_layer, GColorClear, GColorBlack, GTextAlignmentCenter);
-  text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
+  text_layer_attributes(s_date_layer, GColorClear, GColorBlack, "FONT_KEY_ROBOTO_CONDENSED_21",GTextAlignmentCenter);
+  //text_layer_set_font(s_date_layer, fonts_get_system_font(FONT_KEY_ROBOTO_CONDENSED_21));
   
   // Add the text layer with the correct attributes
-  text_layer_attributes(s_time_layer, GColorClear, GColorBlack, GTextAlignmentCenter);
+  text_layer_attributes(s_time_layer, GColorClear, GColorBlack, "FONT_KEY_LECO_42_NUMBERS",GTextAlignmentCenter);
 
   // setting the color of the window background
   window_set_background_color(s_main_window, GColorJaegerGreen);
   
   // Add it as a child layer to the Window's root layer
+
   layer_add_child(window_layer, text_layer_get_layer(s_date_layer));
   layer_add_child(window_layer, text_layer_get_layer(s_time_layer));
   layer_add_child(window_layer, bitmap_layer_get_layer(s_bitmap_layer));
