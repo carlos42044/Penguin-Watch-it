@@ -37,7 +37,7 @@ static void update_time() {
   // Write the current date into a buffer
   static char s_buffer_date[12]; 
   strftime(s_buffer_date, sizeof(s_buffer_date), "%a, %b %d", tick_time);
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "s_buffer_date[] value is: %s" , s_buffer_date);
+  //APP_LOG(APP_LOG_LEVEL_DEBUG, "s_buffer_date[] value is: %s" , s_buffer_date);
   
   //Display this time on the TextLayer 
   text_layer_set_text(s_time_layer, s_buffer);
@@ -52,12 +52,16 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed){
 
 static void animation(GRect bounds) {
   // Creating the sequence
-  s_sequence = gbitmap_sequence_create_with_resource(PBL_IF_BW_ELSE(RESOURCE_ID_SCALED_LARGE_GRAY_SCALE, RESOURCE_ID_SCALED_LARGE_COLOR));
+  s_sequence = gbitmap_sequence_create_with_resource(PBL_IF_COLOR_ELSE(RESOURCE_ID_SCALED_LARGE_COLOR, RESOURCE_ID_SCALED_LARGE_GRAY_SCALE));
   // Create the blank GBitmap using APNG frame size
   GSize frame_size = gbitmap_sequence_get_bitmap_size(s_sequence);
   s_bitmap = gbitmap_create_blank(frame_size, GBitmapFormat8Bit);
   
   // Begin the bitmap layer
+  //s_bitmap_layer = bitmap_layer_create(GRect(0, 0, frame_size.w, frame_size.h));
+
+   // s_bitmap_layer = bitmap_layer_create(GRect(0,0, frame_size.w, frame_size.h));
+
   s_bitmap_layer = bitmap_layer_create(GRect(bounds.size.w/2-(bounds.size.w/6), bounds.size.h/32, frame_size.w, frame_size.h));
   // SET THE LAYER TO COMPOSITING_MODE !!!!!!!!!!
   bitmap_layer_set_compositing_mode(s_bitmap_layer, GCompOpSet); //To make it transparent 
@@ -71,9 +75,10 @@ static void animation(GRect bounds) {
 }
 
 static void accel_tap_handler(AccelAxisType axis, int32_t direction) {
-  APP_LOG(APP_LOG_LEVEL_INFO, "Tap event recieved");
+  APP_LOG(APP_LOG_LEVEL_INFO, "Tap event recieved...Count is: %d", count);
     if (count % 2 == 0) {
     window_set_background_color(s_main_window, GColorRed);
+    count = 0;
   } else {
     window_set_background_color(s_main_window, GColorJaegerGreen);
   }
@@ -85,7 +90,7 @@ static void text_layer_attributes(TextLayer *text_layer, GColor background_color
   text_layer_set_text_color(text_layer, text_color);
   text_layer_set_text_alignment(text_layer, text_alignment);
   text_layer_set_font(s_time_layer, fonts_get_system_font(font));
-  APP_LOG(APP_LOG_LEVEL_DEBUG, "font_ID value is: %s" , font);
+  //APP_LOG(APP_LOG_LEVEL_DEBUG, "font_ID value is: %s" , font);
 }
 
 static void main_window_load(Window *window) {
